@@ -1,0 +1,38 @@
+[*]
+[*] GTKWave Analyzer v3.3.104 (w)1999-2020 BSI
+[*] Tue Dec 12 23:31:36 2023
+[*]
+[dumpfile] "/home/ega/Documents/Complex/test.vsd"
+[dumpfile_mtime] "Tue Dec 12 23:30:34 2023"
+[dumpfile_size] 3022
+[savefile] "/home/ega/Documents/Complex/gtkwave_out.gtkw"
+[timestart] 0
+[size] 1391 830
+[pos] 159 33
+*-6.564593 89 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] complex_tb.
+[sst_width] 233
+[signals_width] 318
+[sst_expanded] 1
+[sst_vpaned_height] 224
+@24
+complex_tb.dut.a_imag_reg[7:0]
+complex_tb.dut.a_real_reg[7:0]
+complex_tb.dut.b_imag_reg[7:0]
+complex_tb.dut.b_real_reg[7:0]
+complex_tb.dut.clk
+complex_tb.dut.data_valid[1:0]
+complex_tb.dut.img[15:0]
+complex_tb.dut.k1[15:0]
+complex_tb.dut.k2[15:0]
+complex_tb.dut.k3[15:0]
+complex_tb.dut.mult1[15:0]
+complex_tb.dut.mult2[15:0]
+complex_tb.dut.res[15:0]
+complex_tb.dut.state[2:0]
+complex_tb.dut.temp[15:0]
+complex_tb.dut.z_imag[15:0]
+@421
+complex_tb.dut.z_real[15:0]
+[pattern_trace] 1
+[pattern_trace] 0
