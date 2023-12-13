@@ -68,21 +68,31 @@ int main() {
 
     while(1)
     {           
-        if (counter == 9)
+        if (counter > 10)
             exit(0);
 
-        a_real = 1;
-        a_imag = 2;
-        b_real = 3; 
-        b_imag = 4;
+        if (counter == 0){
+            a_real = 1;
+            a_imag = 2;
+            b_real = 3; 
+            b_imag = 4;
+        }
+        if (counter == 3){
+            a_real = 2;
+            a_imag = 4;
+            b_real = 6; 
+            b_imag = 8; 
+        }
+        if (counter == 6){
+            a_real = 1;
+            a_imag = 3;
+            b_real = 5; 
+            b_imag = 7; 
+        }
 
         multiply();
         update_result();
-        
-        // printf("%d\n", k1);
-        // printf("%d\n", k2);
-        // printf("%d\n", k3);
-        
+                
         printf("Real = %d\n", res);
         printf("Img = %d\n", img);
 
