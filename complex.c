@@ -1,89 +1,94 @@
 #include <stdio.h>
+#include <time.h>
+#include <stdlib.h>
 #include <stdint.h>
 
-// Assuming data_valid is some status where:
-// 0 = no data, 1 = new data available
-#define NO_DATA 0
-#define NEW_DATA 1
-
-// Function prototypes
-void process_data(int8_t a_real, int8_t a_imag, int8_t b_real, int8_t b_imag);
-void state_machine();
-
-// Global variables (which preserve state across function calls)
-int8_t a_real_reg = 0, a_imag_reg = 0, b_real_reg = 0, b_imag_reg = 0;
-int16_t k1 = 0, k2 = 0, k3 = 0;
-int16_t mult1 = 0, mult2 = 0, temp = 0;
-int16_t z_real = 0, z_imag = 0;
+void delay(int sec)
+{
+    int msec = (1000 * sec);
+    clock_t start = clock();
+    while (clock() < (start + msec))
+    {
+        ;
+    }    
+}
 int state = 0;
 
-int main() {
-    // In a software simulation, we'd likely be calling this in some kind of loop
-    // or based on some event which indicates that there's new data to process.
-    // Here's a simple example with hardcoded inputs.
+int8_t a_real = 0, a_imag = 0, b_real = 0, b_imag = 0;
+int16_t k1 = 0, k2 = 0, k3 = 0;
+int16_t mult1 = 0, mult2 = 0, temp = 0;
+int16_t res = 0, img = 0;
+int16_t z_real = 0, z_imag = 0;
 
-    // Simulate the clock and data_valid signal
-    for(int i = 0; i < 10; i++) {
-        // Simulate new data coming in on every cycle
-        int8_t a_real = 1, a_imag = -1, b_real = 2, b_imag = -2;
-        process_data(a_real, a_imag, b_real, b_imag);
+void multiply(){
+    if (state == 1) {
+        mult1 = a_real;
+        mult2 = a_imag + b_imag;
+    } else if (state == 2) {
+        mult1 = b_imag;
+        mult2 = a_real + b_real;
+    } else if (state == 3) {
+        mult1 = a_imag;
+        mult2 = b_real - a_real;
+    } else {
+        mult1 = 0;
+        mult2 = 0;
     }
-    
-    // Print final results
-    printf("Result: Z_real: %d, Z_imag: %d\n", z_real, z_imag);
-    
+
+temp = mult1 * mult2;
+}
+
+int update_result() {
+switch (state) {
+    case 1:
+        k1 = temp;
+        state = 2;
+        return 0;
+    case 2:
+        k2 = temp;
+        state = 3;
+        return 0;
+    case 3:
+        k3 = temp;
+        res = k1 - k2;
+        img = k1 + k3;
+        state = 1;
+        return 0;
+    default:
+        break;
+    }
     return 0;
 }
 
-void process_data(int8_t a_real, int8_t a_imag, int8_t b_real, int8_t b_imag) {
-    static int data_valid = NO_DATA;
-    
-    // Simulate a data valid signal
-    data_valid = NEW_DATA;
-    
-    if(data_valid == NEW_DATA) {
-        // Register new values
-        a_real_reg = a_real;
-        a_imag_reg = a_imag;
-        b_real_reg = b_real;
-        b_imag_reg = b_imag;
-        
-        // Reset or prepare other values
-        k1 = k2 = k3 = 0;
-        state = 1;
-        data_valid = NO_DATA;
-    }
-    
-    // Call the state machine to process the data
-    state_machine();
-}
 
-void state_machine() {
-    switch(state) {
-        case 1:
-            mult1 = (int16_t)a_real_reg;
-            mult2 = (int16_t)(a_imag_reg + b_imag_reg);
-            temp = mult1 * mult2;
-            k2 = temp;
-            state = 2;
-            break;
-        case 2:
-            mult1 = (int16_t)b_imag_reg;
-            mult2 = (int16_t)(a_real_reg + b_real_reg);
-            temp = mult1 * mult2;
-            k3 = temp;
-            state = 3;
-            break;
-        case 3:
-            mult1 = (int16_t)a_imag_reg;
-            mult2 = (int16_t)(b_real_reg - a_real_reg);
-            temp = mult1 * mult2;
-            k1 = temp;
-            z_real = k1 - k2;
-            z_imag = k1 + k3;
-            state = 0;
-            break;
-        default:
-            break;
+int main() {
+    
+    state = 1;
+    int counter = 0;
+
+    while(1)
+    {           
+        if (counter == 9)
+            exit(0);
+
+        a_real = 1;
+        a_imag = 2;
+        b_real = 3; 
+        b_imag = 4;
+
+        multiply();
+        update_result();
+        
+        // printf("%d\n", k1);
+        // printf("%d\n", k2);
+        // printf("%d\n", k3);
+        
+        printf("Real = %d\n", res);
+        printf("Img = %d\n", img);
+
+        counter++;
+        delay(50);
     }
+
+    return 0;
 }
