@@ -28,6 +28,8 @@ reg signed [15:0] temp = 0;
 
 reg signed [15:0] counter = 0;
 reg signed [15:0] real_counter = 0;
+reg [1:0] last = 0;
+reg [2:0] counter_last = 0;
 
 always @(posedge clk) 
 begin
@@ -60,7 +62,7 @@ begin
         state <= 1;
         real_counter <= real_counter + 1;
     
-    end else if ((counter == real_counter) && (state == 0))
+    end else if ((counter == real_counter) && (state == 4))
     begin
         a_real_reg <= a_real;
         a_imag_reg <= a_imag;
@@ -69,6 +71,7 @@ begin
         state = 1;
         counter = counter + 1;
         real_counter = real_counter + 2;
+        last <= 1;
     end
 
     begin
@@ -85,13 +88,38 @@ begin
                 k1 <= temp; 
                 res <= k1 - k2;
                 img <= k1 + k3;
-                state = 0;  
+                state = 4;
                 end
             default: 
             ;
         endcase
     end
 end
+
+always @(posedge clk) 
+begin
+    if(last == 1)
+        counter_last <= counter_last + 1;
+
+
+    if((last == 1) && (counter_last == 4)) 
+    begin
+        res <= 0;
+        img <= 0;
+        counter <= 0;
+        real_counter <= 0;
+        last <= 0;
+        state <= 0;
+        counter_last <= 0;
+        mult1 <= 0;
+        mult2 <= 0;
+        temp <= 0;
+        k1 <= 0;
+        k2 <= 0;
+        k3 <= 0;
+    end
+end
+
 
 assign z_real = res;
 assign z_imag = img;

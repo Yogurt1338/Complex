@@ -94,7 +94,42 @@ begin
     b_real <= 8'sd00;
     b_imag <= 8'sd00;
     
-    #100;
+
+
+
+    #150;
+    
+    data_valid <= 2'b01; 
+    a_real <= 8'sd1; 
+    a_imag <= 8'sd2;
+    b_real <= 8'sd3;
+    b_imag <= 8'sd4;
+
+    #10;
+    data_valid <= 2'b00;     
+    a_real <= 8'sd00; 
+    a_imag <= 8'sd00;
+    b_real <= 8'sd00;
+    b_imag <= 8'sd00;
+
+
+    
+    #20;
+    data_valid <= 2'b01; 
+    a_real <= 8'sd02; 
+    a_imag <= 8'sd04;
+    b_real <= 8'sd06;
+    b_imag <= 8'sd08;
+
+    #10;
+    data_valid <= 2'b00; 
+    a_real <= 8'sd00; 
+    a_imag <= 8'sd00;
+    b_real <= 8'sd00;
+    b_imag <= 8'sd00;
+
+
+    #150;
 
     $finish;
 end
