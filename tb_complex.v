@@ -65,11 +65,11 @@ begin
 
 
     #20;
+    data_valid <= 2'b01; 
     a_real <= 8'sd01; 
     a_imag <= 8'sd02;
     b_real <= 8'sd01;
     b_imag <= 8'sd02;
-    data_valid <= 2'b01; 
 
     #10;
     data_valid <= 2'b00; 
@@ -78,12 +78,14 @@ begin
     b_real <= 8'sd00;
     b_imag <= 8'sd00;
 
+
+
     #20;
+    data_valid <= 2'b01; 
     a_real <= 8'sd03; 
     a_imag <= 8'sd04;
     b_real <= 8'sd05;
     b_imag <= 8'sd06;
-    data_valid <= 2'b01; 
 
     #10;
     data_valid <= 2'b00; 
@@ -91,22 +93,8 @@ begin
     a_imag <= 8'sd00;
     b_real <= 8'sd00;
     b_imag <= 8'sd00;
-
-
-    #20;
-    data_valid <= 2'b01; 
-
-    #10;
-    data_valid <= 2'b00; 
-
-
-    #20;
-    data_valid <= 2'b01; 
-
-    #10;
-    data_valid <= 2'b00; 
     
-    #200;
+    #100;
 
     $finish;
 end

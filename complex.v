@@ -26,6 +26,9 @@ reg signed [15:0] mult1 = 0;
 reg signed [15:0] mult2 = 0;
 reg signed [15:0] temp = 0;
 
+reg signed [15:0] counter = 0;
+reg signed [15:0] real_counter = 0;
+
 always @(posedge clk) 
 begin
 
@@ -42,15 +45,32 @@ end
 
 always @(posedge clk) 
 begin
+    
+    if (data_valid)
+    begin
+        counter = counter + 1;
+    end
 
-    if(data_valid) 
+    if(counter > real_counter)
     begin
         a_real_reg <= a_real;
         a_imag_reg <= a_imag;
         b_real_reg <= b_real;
         b_imag_reg <= b_imag;
         state <= 1;
+        real_counter <= real_counter + 1;
+    
+    end else if ((counter == real_counter) && (state == 0))
+    begin
+        a_real_reg <= a_real;
+        a_imag_reg <= a_imag;
+        b_real_reg <= b_real;
+        b_imag_reg <= b_imag;
+        state = 1;
+        counter = counter + 1;
+        real_counter = real_counter + 2;
     end
+
     begin
         case (state)
             1: begin 
