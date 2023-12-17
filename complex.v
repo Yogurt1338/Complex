@@ -65,6 +65,7 @@ begin
                 k1 <= temp; 
                 res <= k1 - k2;
                 img <= k1 + k3;
+                state = 0;  
                 end
             default: 
             ;

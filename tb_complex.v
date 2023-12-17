@@ -17,26 +17,27 @@ initial
 initial
 begin
 
+    data_valid <= 2'b01; 
     a_real <= 8'sd1; 
     a_imag <= 8'sd2;
     b_real <= 8'sd3;
     b_imag <= 8'sd4;
-    data_valid <= 2'b01; 
 
     #10;
-    data_valid <= 2'b00; 
+    data_valid <= 2'b00;     
     a_real <= 8'sd00; 
     a_imag <= 8'sd00;
     b_real <= 8'sd00;
     b_imag <= 8'sd00;
-    
+
+
     
     #20;
+    data_valid <= 2'b01; 
     a_real <= 8'sd02; 
     a_imag <= 8'sd04;
     b_real <= 8'sd06;
     b_imag <= 8'sd08;
-    data_valid <= 2'b01; 
 
     #10;
     data_valid <= 2'b00; 
@@ -45,12 +46,14 @@ begin
     b_real <= 8'sd00;
     b_imag <= 8'sd00;
 
+
+
     #20;
+    data_valid <= 2'b01; 
     a_real <= 8'sd01; 
     a_imag <= 8'sd03;
     b_real <= 8'sd05;
     b_imag <= 8'sd07;
-    data_valid <= 2'b01; 
 
     #10;
     data_valid <= 2'b00; 
@@ -58,6 +61,8 @@ begin
     a_imag <= 8'sd00;
     b_real <= 8'sd00;
     b_imag <= 8'sd00;
+
+
 
     #20;
     a_real <= 8'sd01; 
@@ -73,6 +78,34 @@ begin
     b_real <= 8'sd00;
     b_imag <= 8'sd00;
 
+    #20;
+    a_real <= 8'sd03; 
+    a_imag <= 8'sd04;
+    b_real <= 8'sd05;
+    b_imag <= 8'sd06;
+    data_valid <= 2'b01; 
+
+    #10;
+    data_valid <= 2'b00; 
+    a_real <= 8'sd00; 
+    a_imag <= 8'sd00;
+    b_real <= 8'sd00;
+    b_imag <= 8'sd00;
+
+
+    #20;
+    data_valid <= 2'b01; 
+
+    #10;
+    data_valid <= 2'b00; 
+
+
+    #20;
+    data_valid <= 2'b01; 
+
+    #10;
+    data_valid <= 2'b00; 
+    
     #200;
 
     $finish;
